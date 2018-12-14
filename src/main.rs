@@ -35,24 +35,72 @@ fn main() {
         for i in 0..10 {
             input.push(i);
         }
-        
+        println!("Orgineel:  {:?}", &input);
         println!("Standaard: {:?}", Opdracht323::revers(&input));
         println!("Recursief: {:?}", Opdracht323::better_revers(&input, Vec::new(), 0));
 
         println!("\nIs het een succes? {}", Opdracht323::revers(&input) == Opdracht323::better_revers(&input, Vec::new(), 0));
 
         println!("=====================================\n");
+    //Opdreacht 3.2.4    
 
+        println!("=====================================");
+        println!("Opdracht 3.2.4");
         println!("Standaard: {}", Opdracht324::fib_rec(15));
         println!("Standaard: {}", Opdracht324::better_fib_rec(15, 0, 1));
+        println!("\nIs het eeb succes? {}", Opdracht324::fib_rec(15) == Opdracht324::better_fib_rec(15, 0 ,1));
+        println!("=====================================\n");
+    //Opdreacht 3.3.1    
+
+        println!("=====================================");
+        println!("Opdracht 3.3.1");
+        
+        let mut list = Vec::new();
+        const CHANGE: isize = 10;
+        const FINPUT: isize = 42;
+        list.push((|i|i + CHANGE) as fn(isize) -> isize);
+        list.push((|i|i - CHANGE) as fn(isize) -> isize);
+        list.push((|i|i / CHANGE) as fn(isize) -> isize);
+        list.push((|i|i * CHANGE) as fn(isize) -> isize);
+        list.push((|i|i % CHANGE) as fn(isize) -> isize);
+        list.push((|i|i ^ CHANGE) as fn(isize) -> isize);
+        println!("Orgineel: {}", CHANGE);
+        println!("{:?}",Opdracht331::apply_everything(&list, FINPUT, 0, Vec::new())); 
+        println!("=====================================\n");
+
+    //Opdreacht 3.3.2   
+
+        println!("=====================================");
+        println!("Opdracht 3.3.2");
+
+        const CHANGE2: isize = 10;
+        const FINPUTE: isize = 47;
+        let mut list_even = Vec::new();
+        
+        list_even.push((|i|i + CHANGE2) as fn(isize) -> isize);
+        list_even.push((|i|i - CHANGE2) as fn(isize) -> isize);
+        list_even.push((|i|i / CHANGE2) as fn(isize) -> isize);
+        list_even.push((|i|i * CHANGE2) as fn(isize) -> isize);
+        list_even.push((|i|i % CHANGE2) as fn(isize) -> isize);
+        list_even.push((|i|i ^ CHANGE2) as fn(isize) -> isize);
+
+        println!("Orgineel: {:?}", CHANGE2);
+        println!("{:?}",Opdracht331::apply_everything(&list_even, FINPUTE, 0, Vec::new())); 
+        println!("{:?}",Opdracht331::apply_everything(&Opdracht332::filter_even_on_input(list_even, FINPUTE, 0, Vec::new()), FINPUTE, 0, Vec::new())); 
+        println!("=====================================\n");
+
+        
+
+
 
 }
-
 
 struct Opdracht321{}
 struct Opdracht322{}
 struct Opdracht323{}
 struct Opdracht324{}
+struct Opdracht331{}
+struct Opdracht332{}
 
 impl Opdracht321{
     fn sum_of_squares(values: &Vec<f64>) -> f64 {
@@ -143,8 +191,32 @@ impl Opdracht324 {
 
         }
     }
+}
 
+impl Opdracht331{
 
+  fn apply_everything<F: Fn(isize) -> isize>( list : &Vec<F>, integer: isize,  count: usize, mut result: Vec<isize> ) -> Vec<isize>{
+        if list.len() == count {
+            return result
+        }
+        result.push(list[count](integer));
+        return Opdracht331::apply_everything(list, integer, count+1, result)
+    }
+}
 
+impl Opdracht332{
+    fn filter_even_on_input<F: Fn(isize) -> isize>( mut list : Vec<F>, integer: isize, mut  count: usize, mut result: Vec<F> ) -> Vec<F>{
+        if list.len() == count {
+            return result
+        }
+        if list[count](integer) % 2 ==  0 {
+            result.push(list.remove(count));
+        }else{
+            count = count + 1;
+        }
 
+        return Opdracht332::filter_even_on_input(list, integer, count, result)
+
+        
+    }
 }
