@@ -63,8 +63,19 @@ fn main(){
         list.push((|i|i / CHANGE) as fn(isize) -> isize);
         list.push((|i|i * CHANGE) as fn(isize) -> isize);
         list.push((|i|i % CHANGE) as fn(isize) -> isize);
-        list.push((|i|i ^ CHANGE) as fn(isize) -> isize);
-        list.push((|i|i*i       ) as fn(isize) -> isize);
+        list.push((|i|i ^ CHANGE) as fn(isize) -> isize);        
+        list.push((|i|i + i      ) as fn(isize) -> isize);
+        list.push((|i|i / i      ) as fn(isize) -> isize);
+        list.push((|i|i * i      ) as fn(isize) -> isize);
+        list.push((|i|i ^ i      ) as fn(isize) -> isize);      
+        list.push((|i|i + 2      ) as fn(isize) -> isize);
+        list.push((|i|i / 2      ) as fn(isize) -> isize);
+        list.push((|i|i * 2      ) as fn(isize) -> isize);
+        list.push((|i|i ^ 2      ) as fn(isize) -> isize);
+        list.push((|i|i + 5      ) as fn(isize) -> isize);
+        list.push((|i|i / 5      ) as fn(isize) -> isize);
+        list.push((|i|i * 5      ) as fn(isize) -> isize);
+        list.push((|i|i ^ 5      ) as fn(isize) -> isize);
         println!("Orgineel: {}", CHANGE);
         println!("{:?}",Opdracht331::apply_everything_wrapper(&list, FINPUT)); 
         println!("=====================================\n");
@@ -84,7 +95,19 @@ fn main(){
         list_even.push((|i|i * CHANGE2) as fn(isize) -> isize);
         list_even.push((|i|i % CHANGE2) as fn(isize) -> isize);
         list_even.push((|i|i ^ CHANGE2) as fn(isize) -> isize);
-        list_even.push((|i|i*i        ) as fn(isize) -> isize);
+        list_even.push((|i|i + i      ) as fn(isize) -> isize);
+        list_even.push((|i|i / i      ) as fn(isize) -> isize);
+        list_even.push((|i|i * i      ) as fn(isize) -> isize);
+        list_even.push((|i|i ^ i      ) as fn(isize) -> isize);
+        list_even.push((|i|i + 2      ) as fn(isize) -> isize);
+        list_even.push((|i|i / 2      ) as fn(isize) -> isize);
+        list_even.push((|i|i * 2      ) as fn(isize) -> isize);
+        list_even.push((|i|i ^ 2      ) as fn(isize) -> isize);
+        list_even.push((|i|i + 5      ) as fn(isize) -> isize);
+        list_even.push((|i|i / 5      ) as fn(isize) -> isize);
+        list_even.push((|i|i * 5      ) as fn(isize) -> isize);
+        list_even.push((|i|i ^ 5      ) as fn(isize) -> isize);
+
 
         println!("Orgineel: {:?}", CHANGE2);
         println!("{:?}",Opdracht331::apply_everything_wrapper(&list_even, FINPUTE)); 
@@ -198,9 +221,6 @@ impl Opdracht324 {
         }
         else {
             return Opdracht324::better_fib_rec(n - 1, b , a + b);
-
-            
-
         }
     }
 }
